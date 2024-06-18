@@ -47,6 +47,42 @@ class HindiDataset(AbstractDataset):
     
     def __getitem__(self, idx):
         return self.get_example(idx)
+    
+    def generator(self):
+        for idx in range(len(self)):
+            yield self[idx]
+
+    def get_args(self):
+        return (
+            {
+                "generator": self.generator,
+            },
+            {
+                "output_signature": (
+                    {
+                        "utt_id": tf.TensorSpec(shape=(), dtype=tf.int32),
+                        "input_ids": tf.TensorSpec(shape=(None,), dtype=tf.int32),
+                        "input_lengths": tf.TensorSpec(shape=(), dtype=tf.int32),
+                        "mel_gts": tf.TensorSpec(shape=(None, 80), dtype=tf.float32),
+                        "mel_lengths": tf.TensorSpec(shape=(), dtype=tf.int32),
+                    }
+                )
+            }
+        )
+
+    def get_len_dataset(self):
+        return len(self)
+
+    def get_output_dtypes(self):
+        return (
+            {
+                "utt_id": tf.int32,
+                "input_ids": tf.int32,
+                "input_lengths": tf.int32,
+                "mel_gts": tf.float32,
+                "mel_lengths": tf.int32,
+            }
+        )
 
 # Define paths
 base_dir = '/content/Hindi_M'
