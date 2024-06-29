@@ -20,7 +20,7 @@ class TrainTTSArgs(TrainerArgs):
 def formatter(root_path, manifest_file, **kwargs):  # pylint: disable=unused-argument
     """Assumes each line as ```<filename>|<transcription>```
     """
-    txt_file = "/kaggle/working/tts/MyTTSDataset/transcript (1).txt"
+    txt_file = "/kaggle/input/tts-hindi-f/transcript (1).txt"
     items = []
     speaker_name = "my_speaker"
     with open(txt_file, "r", encoding="utf-8") as ttf:
