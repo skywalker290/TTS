@@ -26,7 +26,7 @@ from TTS.utils.audio import AudioProcessor
 import os
 from tqdm import tqdm
 
-!mkdir Models
+# !mkdir Models
 output_path = model_path
 
 dataset_config = BaseDatasetConfig(
@@ -156,8 +156,6 @@ eval_split=True,
 formatter=formatter)
 
 
-
-# init model
 model = Vits(config, ap, tokenizer, speaker_manager=None)
 
 # init the trainer and 🚀
