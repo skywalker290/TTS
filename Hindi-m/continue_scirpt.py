@@ -17,20 +17,41 @@ from TTS.tts.models import setup_model
 class TrainTTSArgs(TrainerArgs):
     config_path: str = field(default=None, metadata={"help": "Path to the config file."})
 
+# def formatter(root_path, manifest_file, **kwargs):  # pylint: disable=unused-argument
+#     """Assumes each line as ```<filename>|<transcription>```
+#     """
+#     txt_file = "/kaggle/input/tts-hindi-f/transcript (1).txt"
+#     items = []
+#     speaker_name = "my_speaker"
+#     with open(txt_file, "r", encoding="utf-8") as ttf:
+#         for line in ttf:
+#             cols = line.split("@")
+#             path = "/kaggle/input/tts-hindi-f/Hindi-F/wav/"
+#             wav_file = f"{path}{cols[0]}.wav"
+#             text = cols[1]
+#             # print(text)
+#             items.append({"text":text, "audio_file":wav_file, "speaker_name":speaker_name, "root_path": root_path})
+#     return items
+wav_path = "/kaggle/input/hindi-small/train/audio/"
+# txt_path = "/kaggle/input/tts-hindi-f/Hindi-F/txt"
+transcript_path = "/kaggle/working/transcription1.txt"
+dataset_path = "/kaggle/input/tts-hindi-f/Hindi-F"
+transcript_name = "transcription1.txt"
+model_path = "/kaggle/working/Models"
+
 def formatter(root_path, manifest_file, **kwargs):  # pylint: disable=unused-argument
     """Assumes each line as ```<filename>|<transcription>```
     """
-    txt_file = "/kaggle/input/tts-hindi-f/transcript (1).txt"
+    txt_file = transcript_path
     items = []
     speaker_name = "my_speaker"
     with open(txt_file, "r", encoding="utf-8") as ttf:
         for line in ttf:
             cols = line.split("@")
-            path = "/kaggle/input/tts-hindi-f/Hindi-F/wav/"
-            wav_file = f"{path}{cols[0]}.wav"
+            wav_file = f"{wav_path}{cols[0]}.wav"
             text = cols[1]
             # print(text)
-            items.append({"text":text, "audio_file":wav_file, "speaker_name":speaker_name, "root_path": root_path})
+            items.append({"text":text, "audio_file":wav_file, "speaker_name":cols[0][5:8], "root_path": root_path})
     return items
 
 def main():
